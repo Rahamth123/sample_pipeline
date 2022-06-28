@@ -40,7 +40,7 @@ stages:
         displayName: Push image
         inputs:
            azureSubscription: Dockerhub connection rahamat
-           repository: lttspoc
+           repository: lttspoc:myimage1
            command: push
            tags: |
              myimage1
