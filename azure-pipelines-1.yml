@@ -40,8 +40,6 @@ stages:
         displayName: Push image
         inputs:
            azureSubscription: Dockerhub connection rahamat
-           containerRegistry: |
-             $(dockerHub)
            repository: raham3144/lttspoc
            command: push
            tags: |
