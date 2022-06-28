@@ -29,7 +29,7 @@ stages:
         tags: |
           $(tag)
 - stage: Push the docker image
-  displayName: Push image to dockerhub
+  displayName: Push image
   jobs: 
   - job: Push
     displayName: Push
