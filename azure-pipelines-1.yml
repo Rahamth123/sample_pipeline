@@ -28,7 +28,7 @@ stages:
         dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
         tags: |
           $(tag)
-- stage: Push the docker image
+- stage: Push
   displayName: Push image
   jobs: 
   - job: Push
