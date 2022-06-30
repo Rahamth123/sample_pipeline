@@ -14,29 +14,33 @@ variables:
   ImageName: 'rahmath/lttspoc:$(Build.BuildId)'
 
 stages:
-- stage: Build
-  displayName: Build image
-  jobs:  
-  - job: Build
-    displayName: Build and push Docker image
+- stage: Login to Dockerhub
+  displayName: Login to dockerhub
+  jobs:
+  - job: 
+    displayName: Login to Docker HUb
+    pool:
+      vmImage: ubuntu-latest
     steps:
-    - task: Docker@1
-      displayName: 'Build the Docker image'
+    - task: Docker@2
+      displayName: Login to Docker Hub
       inputs:
-        containerregistrytype: 'Container Registry'
-        dockerRegistryEndpoint: 'Docker Hub'
-        command: 'Build an image'
-        dockerFile: '**/Dockerfile'
-        imageName: '$(ImageName)'
-        includeLatestTag: true
-        useDefaultContext: false
-        buildContext: '.'
-     
-    - task: Docker@1
-      displayName: 'Push the Docker image to Dockerhub'
+        command: login
+        containerRegistry: Dockerhubconnectionrahamat
+- stage: Push
+  displayName: Push image
+  jobs: 
+  - job: Push
+    displayName: Push
+    pool:
+      vmImage: ubuntu-latest
+    steps:
+    - task: Docker@2
+      displayName: Build and Push
       inputs:
-        containerregistrytype: 'Container Registry'
-        dockerRegistryEndpoint: 'Docker Hub'
-        command: 'Push an image'
-        imageName: '$(ImageName)'
-      condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
+        command: buildAndPush
+        repository: lttspoc # username/contosoRepository for DockerHub
+        tags: |
+           tag1
+           tag2
+               
