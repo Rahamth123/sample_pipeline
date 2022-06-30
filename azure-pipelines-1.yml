@@ -27,10 +27,19 @@ stages:
       inputs:
         command: login
         containerRegistry: Dockerhubconnectionrahamat
+- stage: Push
+  displayName: Push image
+  jobs: 
+  - job: Push
+    displayName: Push
+    pool:
+      vmImage: ubuntu-latest
+    steps:
     - task: Docker@2
       displayName: Build and Push
       inputs:
         command: buildAndPush
+        containerRegistry: Dockerhubconnectionrahamat
         repository: lttspoc # username/contosoRepository for DockerHub
         tags: |
            rahmat
