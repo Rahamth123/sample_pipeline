@@ -11,6 +11,7 @@ resources:
 
 variables:
   tag: '$(Build.BuildId)'
+  ImageName: 'rahmath/lttspoc:$(Build.BuildId)'
 
 stages:
 - stage: Build
@@ -25,10 +26,13 @@ stages:
       displayName: Build an image
       inputs:
         containerRegistry: Dockerhubconnectionrahamat
+        containerregistrytype: 'Container Registry'
+        dockerRegistryEndpoint: 'Docker Hub'
         command: build
         dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
+        imageName: '$(ImageName)'
         tags: |
-          lttspoc
+          $(tag)
 - stage: Push
   displayName: Push image
   jobs: 
@@ -41,7 +45,12 @@ stages:
         displayName: Push image
         inputs:
            containerRegistry: Dockerhubconnectionrahamat
+           containerregistrytype: 'Container Registry'
+           dockerRegistryEndpoint: 'Docker Hub'
+           imageName: '$(ImageName)'
            repository: lttspoc
            command: push
+           tags: |
+              $(tag)
 
                
