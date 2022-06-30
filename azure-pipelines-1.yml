@@ -42,6 +42,5 @@ stages:
            azureSubscription: Dockerhub connection rahamat
            repository: lttspoc
            command: push
-           tags: |
-             lttspoc
+
                
