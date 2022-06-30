@@ -16,41 +16,27 @@ variables:
 stages:
 - stage: Build
   displayName: Build image
-  jobs:
+  jobs:  
   - job: Build
-    displayName: Build
-    pool:
-      vmImage: ubuntu-latest
+    displayName: Build and push Docker image
     steps:
-    - task: Docker@2
-      displayName: Build an image
+    - task: Docker@1
+      displayName: 'Build the Docker image'
       inputs:
-        containerRegistry: Dockerhubconnectionrahamat
         containerregistrytype: 'Container Registry'
         dockerRegistryEndpoint: 'Docker Hub'
-        command: build
-        dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
+        command: 'Build an image'
+        dockerFile: '**/Dockerfile'
         imageName: '$(ImageName)'
-        tags: |
-          $(tag)
-- stage: Push
-  displayName: Push image
-  jobs: 
-  - job: Push
-    displayName: Push
-    pool:
-      vmImage: ubuntu-latest
-    steps:
-      - task: Docker@2
-        displayName: Push image
-        inputs:
-           containerRegistry: Dockerhubconnectionrahamat
-           containerregistrytype: 'Container Registry'
-           dockerRegistryEndpoint: 'Docker Hub'
-           imageName: '$(ImageName)'
-           repository: lttspoc
-           command: push
-           tags: |
-              $(tag)
-
-               
+        includeLatestTag: true
+        useDefaultContext: false
+        buildContext: '.'
+     
+    - task: Docker@1
+      displayName: 'Push the Docker image to Dockerhub'
+      inputs:
+        containerregistrytype: 'Container Registry'
+        dockerRegistryEndpoint: 'Docker Hub'
+        command: 'Push an image'
+        imageName: '$(ImageName)'
+      condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
