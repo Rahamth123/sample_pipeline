@@ -24,6 +24,7 @@ stages:
     - task: Docker@2
       displayName: Build an image
       inputs:
+        containerRegistry: Dockerhubconnectionrahamat
         command: build
         dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
         tags: |
@@ -39,7 +40,7 @@ stages:
       - task: Docker@2
         displayName: Push image
         inputs:
-           azureSubscription: Dockerhub connection rahamat
+           containerRegistry: Dockerhubconnectionrahamat
            repository: lttspoc
            command: push
 
