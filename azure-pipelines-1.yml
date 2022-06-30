@@ -39,7 +39,7 @@ stages:
       inputs:
         command: buildAndPush
         containerRegistry: Dockerhubconnectionrahamat
-        repository: lttspoc # username/contosoRepository for DockerHub
+        repository: raham3144/lttspoc # username/contosoRepository for DockerHub
         tags: |
            rahmat
                
