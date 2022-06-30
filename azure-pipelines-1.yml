@@ -14,7 +14,7 @@ variables:
   ImageName: 'rahmath/lttspoc:$(Build.BuildId)'
 
 stages:
-- stage: Login to Dockerhub
+- stage: Login
   displayName: Login
   jobs:
   - job: 
