@@ -15,10 +15,10 @@ variables:
 
 stages:
 - stage: Login to Dockerhub
-  displayName: Login to dockerhub
+  displayName: Login
   jobs:
   - job: 
-    displayName: Login to Docker HUb
+    displayName: Login
     pool:
       vmImage: ubuntu-latest
     steps:
