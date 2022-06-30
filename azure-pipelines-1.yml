@@ -17,7 +17,7 @@ stages:
 - stage: Login
   displayName: Login to Dockerhub using service connection
   jobs:
-  - job: Login to Docker hub
+  - job: Login
     pool:
       vmImage: ubuntu-latest
     steps:
