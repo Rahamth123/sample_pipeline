@@ -14,11 +14,10 @@ variables:
   ImageName: 'rahmath/lttspoc:$(Build.BuildId)'
 
 stages:
-- stage: BuildandPushImage
-  displayName: Build and push
+- stage: Login
+  displayName: Login to Dockerhub using service connection
   jobs:
-  - job: 
-    displayName: Build and push
+  - job: Login to Docker hub
     pool:
       vmImage: ubuntu-latest
     steps:
