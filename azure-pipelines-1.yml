@@ -42,4 +42,5 @@ stages:
         repository: raham3144/lttspoc # username/contosoRepository for DockerHub
         tags: |
            rahmat
+
                
