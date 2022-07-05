@@ -26,10 +26,10 @@ stages:
       inputs:
         command: login
         containerRegistry: Dockerhubconnectionrahamat
-- stage: Push
-  displayName: Push image
+- stage: 'Build and Push'
+  displayName: 'Build and Push image'
   jobs: 
-  - job: Push
+  - job: buildAndPush
     displayName: Push
     pool:
       vmImage: ubuntu-latest
