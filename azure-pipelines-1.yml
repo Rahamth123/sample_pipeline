@@ -26,7 +26,7 @@ stages:
       inputs:
         command: login
         containerRegistry: Dockerhubconnectionrahamat
-- stage: 'Build and Push'
+- stage: Build-and-Push
   displayName: 'Build and Push image'
   jobs: 
   - job: buildAndPush
