@@ -53,7 +53,7 @@ stages:
     steps:
       - task: AzureWebAppContainer@1
         inputs:
-          appName: $(WebAppName)
+          appName: 'Python-sample-app'
           azureSubscription: 'Azurewebapp-deploy-rahmat'
           imageName: $(ImageName)
 
