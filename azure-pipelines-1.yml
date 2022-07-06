@@ -44,7 +44,7 @@ stages:
            rahmat
 - stage: Deploy
   displayName: 'Deploy the container to azure webapp'
-  dependsOn: Build and Push
+  dependsOn: Build_and_Push
   jobs:
   - job: Deploy
     displayName: 'Deploy continer to azure webapp'
