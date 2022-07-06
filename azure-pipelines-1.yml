@@ -42,4 +42,18 @@ stages:
         repository: raham3144/lttspoc # username/contosoRepository for DockerHub
         tags: |
            rahmat
+- stage: Deploy
+  displayName: 'Deploy the container to azure webapp'
+  dependsOn: Build and Push
+  jobs:
+  - job: Deploy
+    displayName: 'Deploy continer to azure webapp'
+    pool:
+      vmImage: ubuntu-latest
+    steps:
+      - task: AzureWebAppContainer@1
+        inputs:
+          appName: $(WebAppName)
+          azureSubscription: 'Azurewebapp-deploy-rahmat'
+          imageName: $(ImageName)
 
