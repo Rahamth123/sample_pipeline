@@ -25,14 +25,11 @@ stages:
     - task: Docker@2
       displayName: Build and Push
       inputs:
-        command: build
-        repository: raham3144/lttspoc # username/contosoRepository for DockerHub
-        tags: |
-           rahmat
         azureSubscription: rahamth-acr
         scriptType: 'ps'
         scriptLocation: 'inlineScript'
         inlineScript: |
               az acr login --name rahamth
+              docker build -t .
               docker tag lttspoc:rahmat rahamth.azurecr.io/rahamth:1stimage
               docker push rahamth.azurecr.io/rahmath:1stimage
