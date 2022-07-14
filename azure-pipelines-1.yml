@@ -25,7 +25,7 @@ stages:
       displayName: Login to Docker Hub
       inputs:
         command: login
-        containerRegistry: Dockerhubconnectionrahamat
+        containerRegistry: rahamth-acr
 - stage: Build_and_Push
   displayName: 'Build and Push image'
   jobs: 
@@ -38,22 +38,7 @@ stages:
       displayName: Build and Push
       inputs:
         command: buildAndPush
-        containerRegistry: Dockerhubconnectionrahamat
+        containerRegistry: rahamth-acr
         repository: raham3144/lttspoc # username/contosoRepository for DockerHub
         tags: |
            rahmat
-- stage: Deploy
-  displayName: 'Deploy the container to azure webapp'
-  dependsOn: Build_and_Push
-  jobs:
-  - job: Deploy
-    displayName: 'Deploy continer to azure webapp'
-    pool:
-      vmImage: ubuntu-latest
-    steps:
-      - task: AzureWebAppContainer@1
-        inputs:
-          appName: 'Python-sample-ap'
-          azureSubscription: 'Azurewebapp-deploy-rahmat'
-          imageName: $(ImageName)
-
