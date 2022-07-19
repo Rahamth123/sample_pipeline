@@ -14,6 +14,18 @@ variables:
   ImageName: 'rahmath/lttspoc:$(Build.BuildId)'
 
 stages:
+- stage: Login
+  displayName: Login to Dockerhub using service connection
+  jobs:
+  - job: Login
+    pool:
+      vmImage: ubuntu-latest
+    steps:
+    - task: Docker@2
+      displayName: Login to Docker Hub
+      inputs:
+        command: login
+        containerRegistry: Dockerhubconnectionrahamat
 - stage: Build_and_Push
   displayName: 'Build and Push image'
   jobs: 
@@ -25,11 +37,22 @@ stages:
     - task: Docker@2
       displayName: Build and Push
       inputs:
-        azureSubscription: rahamth-acr
-        scriptType: 'ps'
-        scriptLocation: 'inlineScript'
-        inlineScript: |
-              az acr login --name rahamth
-              docker build -t .
-              docker tag lttspoc:rahmat rahamth.azurecr.io/rahamth:1stimage
-              docker push rahamth.azurecr.io/rahmath:1stimage
+        command: buildAndPush
+        containerRegistry: Dockerhubconnectionrahamat
+        repository: raham3144/lttspoc # username/contosoRepository for DockerHub
+        tags: |
+           rahmat
+- stage: Deploy
+  displayName: 'Deploy the container to azure webapp'
+  dependsOn: Build_and_Push
+  jobs:
+  - job: Deploy
+    displayName: 'Deploy continer to azure webapp'
+    pool:
+      vmImage: ubuntu-latest
+    steps:
+      - task: AzureWebAppContainer@1
+        inputs:
+          appName: 'Python-sample-ap'
+          azureSubscription: 'Azurewebapp-deploy-rahmat'
+          imageName: $(ImageName)
