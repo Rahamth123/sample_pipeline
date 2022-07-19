@@ -5,7 +5,7 @@
 
 trigger:
 - rahmath
-
+stages:
 
 - stage: Build
   displayName: Build and push stage
@@ -21,10 +21,9 @@ trigger:
         command: buildAndPush
         repository: $(imageRepository)
         dockerfile: $(dockerfilePath)
-        containerRegistry: $(azureRegistryServiceConnection)
+        containerRegistry: $(dockerRegistryServiceConnection)
         tags: |
           $(tag)
-
        
 
 
